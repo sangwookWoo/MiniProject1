@@ -37,7 +37,7 @@ dictConfig({
 })
 
 
-def NS_users_crawler(codes, page):
+def NS_users_crawler(ticker, page):
     # User-Agent 설정
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'}
     result_df = pd.DataFrame([])
@@ -48,7 +48,7 @@ def NS_users_crawler(codes, page):
         if (n_ % 30 == 0):
             log('================== Page ' + str(page) + ' is done ==================')
             result_df.to_csv(os.path.join(filePath,'naver_ds_' + datetime.now().strftime('%Y-%m-%d') + '.csv'), encoding = 'utf-8-sig', index = False)
-        url = "https://finance.naver.com/item/board.naver?code=%s&page=%s" % (codes, str(page))
+        url = "https://finance.naver.com/item/board.naver?code=%s&page=%s" % (ticker, str(page))
         # html → parsing
         html = requests.get(url, headers=headers).content
         # 한글 깨짐 방지 decode
